@@ -8,109 +8,148 @@
 %-------------------------------------------------------------------------------
 \begin{cvopensources}
 
+% Project Name
+% Project Description
+% Link
+% Contribution Detail
+
 %---------------------------------------------------------
   \cvopensource
-    {Servo}   % Project Name
-    {The Servo Browser Engine}  % Project Description
+    {Servo}
+    {The Servo Browser Engine}
     {https://github.com/servo/servo/commits/master?author=wdv4758h}
     {
-      \begin{cvitems}   % Contribution Detail
-        \item {Solved wrong referrer policy in cors\_preflight\_fetch}
-        \item {Remove unnecessary clone from ServiceWorkerManager::prepare\_activation}
-        \item {Added using real pipeline ID value}
+      \begin{cvitems}
+        % 這是要在 JavaScript 端使用的 FormData 實做
+        % 原先沒有實做 Iterable，所以在 WebIDL 中註解掉了
+        % 這 PR 實做了相關功能
+        % 其中注意到目前的資料是用 HashMap 儲存，而 Gecko 中是用 Array
+        % 而且 FormData 的規範說要保留順序
+        % 所以這是未來需要修改部份
+        % 未解 Issue: https://github.com/servo/servo/issues/13105
         \item {Added FormData Iterable}
+        % 更改 Referer Policy 為 Origin，"foo.com/a.html" 會被轉成 "foo.com"
+        % CORS 是指和原本 Domain 不同的 Request，例如 Domain A 的網頁中有個圖片是連到 Domain B
+        % Preflighted Request 是指先向 Domain B 發送 OPTIONS HTTP method
+        % 藉此來判斷是否可以安全地發送真正的 request
+        % https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS#Preflighted_requests
+        % https://fetch.spec.whatwg.org/#cors-preflight-fetch
+        \item {Solved wrong referrer policy in cors\_preflight\_fetch}
+        % 原本的 pipeline_id 因為其他 issue 而暫時用假造的，改成從 NetworkEvent 中取出真正的 pipeline_id
+        \item {Added using real pipeline ID value}
+        % 有段程式碼可以直接拿 Ownership，但是原程式碼還用 Borrow 後再 Clone 以取得可以回傳的資料
+        \item {Remove unnecessary clone from ServiceWorkerManager::prepare\_activation}
       \end{cvitems}
     }
 
 %---------------------------------------------------------
   \cvopensource
-    {rust-rocksdb}   % Project Name
-    {RocksDB wrapper for Rust}  % Project Description
+    {rust-rocksdb}
+    {RocksDB wrapper for Rust}
     {https://github.com/ethcore/rust-rocksdb/commits/master?author=wdv4758h}
     {
-      \begin{cvitems}   % Contribution Detail
+      \begin{cvitems}
+        % 官方 RocksDB 其實有 FreeBSD 支援，但是這 Binding 的 Build Script 沒有用對應的參數打開他
         \item {Fix FreeBSD build}
       \end{cvitems}
     }
 
 %---------------------------------------------------------
   \cvopensource
-    {Parity}   % Project Name
-    {Fast, light, robust Ethereum implementation}  % Project Description
+    {Parity}
+    {Fast, light, robust Ethereum implementation}
     {https://github.com/ethcore/parity/commits/master?author=wdv4758h}
     {
-      \begin{cvitems}   % Contribution Detail
+      \begin{cvitems}
+        % 開啟 FreeBSD 上使用 "open" 指令來用預設瀏覽器開啟 URL
         \item {Fix open function on FreeBSD}
       \end{cvitems}
     }
 
 %---------------------------------------------------------
   \cvopensource
-    {nanomsg.rs}   % Project Name
-    {Nanomsg wrapper for Rust}  % Project Description
+    {nanomsg.rs}
+    {Nanomsg wrapper for Rust}
     {https://github.com/ethcore/nanomsg.rs/commits/master?author=wdv4758h}
     {
-      \begin{cvitems}   % Contribution Detail
+      \begin{cvitems}
+        % 原本的 Binding 會在選擇 Static Linking 時，仍然用到 Dynamic Linking
+        % 加上需要的 Attribute 來「真的」 Static Linking
         \item {Don't dynamic link to libnanomsg when using 'bundled' feature}
       \end{cvitems}
     }
 
 %---------------------------------------------------------
   \cvopensource
-    {rust}   % Project Name
-    {The de-facto Rust compiler implementation}  % Project Description
+    {rust}
+    {The de-facto Rust compiler implementation}
     {https://github.com/rust-lang/rust/commits/master?author=wdv4758h}
     {
-      \begin{cvitems}   % Contribution Detail
-        \item {Update compiler error message to new format}
-        % \item {Change 'rustc::plugin' to 'rustc_plugin' in doc comment}
+      \begin{cvitems}
+        % rustc::plugin 已經被改成 rustc_plugin，但是有個文件說明沒更新到
+        \item {Change 'rustc::plugin' to 'rustc\_plugin' in doc comment}
+        % 更改 Rust 編譯器錯誤的錯誤訊息
+        \item {Fix label messages for E0133}
+        % 更新 Rust 編譯器的錯誤訊息，E0138 是定義了多個 "start" 函式，尤其是用 #[start]
+        \item {Update E0138 to new format}
+        % 更新 Rust 編譯器的錯誤訊息，E0133 是該用 unsafe 但沒用
+        \item {Update E0133 to new format}
       \end{cvitems}
     }
 
 %---------------------------------------------------------
   \cvopensource
-    {clap-rs}   % Project Name
-    {A full featured, fast Command Line Argument Parser for Rust}  % Project Description
+    {clap-rs}
+    {A full featured, fast Command Line Argument Parser for Rust}
     {https://github.com/kbknapp/clap-rs/commits/master?author=wdv4758h}
     {
       \begin{cvitems}   % Contribution Detail
-        \item {Add Fish shell completion support}
+        % 修正巢狀指令時的 Fish Shell 補完支援
+        \item {fix(Completions): fish completions for nested subcommands}
+        % 產生出 Fish Shell 的補完支援
+        \item {feat(Completions): one can generate a basic fish completions script at compile time}
       \end{cvitems}
     }
 
 %---------------------------------------------------------
   \cvopensource
-    {CPython}   % Project Name
-    {The de-facto reference Python implementation}  % Project Description
+    {CPython}
+    {The de-facto reference Python implementation}
     {}
     {
-      \begin{cvitems}   % Contribution Detail
+      \begin{cvitems}
+        % trafile 內自動透過副檔名偵測需要的演算法出了差錯，修正後補上測試
         \item {Fix choosing of compression algorithm in tarfile CLI}
+        % 文件說明有部份跟實際狀況不同，修正說明
         \item {Fix docstring in http.server.test}
       \end{cvitems}
     }
 
 %---------------------------------------------------------
   \cvopensource
-    {re2}   % Project Name
-    {A fast, safe, thread-friendly alternative to backtracking regular expression engines}  % Project Description
+    {re2}
+    {A fast, safe, thread-friendly alternative to backtracking regular expression engines}
     {https://github.com/google/re2/commits/master?author=wdv4758h}
     {
-      \begin{cvitems}   % Contribution Detail
+      \begin{cvitems}
+        % 爬 Benchmark 的結果來生 gnuplot 指令，以畫出相關的圖表
         \item {Add benchmark's gnuplot support}
       \end{cvitems}
     }
 
 %---------------------------------------------------------
   \cvopensource
-    {Neovim}   % Project Name
-    {Vim-fork focused on extensibility and agility}  % Project Description
+    {Neovim}
+    {Vim-fork focused on extensibility and agility}
     {https://github.com/neovim/neovim/commits/master?author=wdv4758h}
     {
-      \begin{cvitems}   % Contribution Detail
-        \item {Porting Vim Patch 7.4.799}
-        \item {version.c: mark patches NA}
+      \begin{cvitems}
+        % Clang 3.7 換了參數，在 CMake 中偵測後使用最新的參數
         \item {build: fix '-fno-sanitize-recover' warning in Clang 3.7 }
+        % 標示一些 Vim 的 Patch 是 Neovim 不需要的
+        \item {version.c: mark patches NA}
+        % 將 Vim 上的 Patch 轉移到 Neovim
+        \item {Porting Vim Patch 7.4.799}
       \end{cvitems}
     }
 
