@@ -2,7 +2,7 @@
 CV
 ========================================
 
-* `PDF version <https://github.com/wdv4758h/resume/files/757486/cv.pdf>`_
+* `PDF version <https://github.com/wdv4758h/resume/files/770111/cv.pdf>`_
 
 
 
